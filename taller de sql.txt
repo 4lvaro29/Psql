@@ -1,0 +1,10 @@
+create table equipos(id serial primary key, name varchar(50));
+create table jugadores(id serial primary key, name varchar(50));
+create table intermedia(equipos_id integer references equipos(id), jugadores_id integer references jugadores(id));
+insert into jugadores (name) values ('alvaro'),('diego'),('rodrigo'),('jose'),('daniel');
+insert into equipos (name) values ('equipo1'),('equipo2'),('equipo3'),('equipo4'),('equipo5');
+insert into intermedia (equipos_id, jugadores_id) values (1,2),(2,3),(3,1),(1,5),(5,5),(3,2),(1,1);
+select count(intermedia.jugadores_id), equipos.name from equipos inner join intermedia on equipos.id = intermedia.equipos_id group by equipos.name;
+select name from equipos left join intermedia on intermedia.equipos_id = equipos.id where intermedia.jugadores_id is null group by equipos.name;
+
+
